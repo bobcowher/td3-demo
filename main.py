@@ -35,11 +35,11 @@ if __name__ == '__main__':
     agent = Agent(alpha=0.001, beta=0.001, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0], layer1_size=400, layer2_size=300)
     # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
     writer = SummaryWriter('logs')
-    n_games = 100000
+    n_games = 3000
     best_score = 0
     score_history = []
     load_checkpoint = False
-    episode_identifier = 1
+    episode_identifier = 0
 
     models_loaded = agent.load_models()
 

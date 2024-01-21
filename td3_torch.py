@@ -59,7 +59,7 @@ class Agent:
         self.memory.store_transition(state, action, reward, new_state, done)
 
     def learn(self):
-        if self.memory.mem_ctr < self.batch_size:
+        if self.memory.mem_ctr < self.batch_size * 20:
             return
 
         state, action, reward, new_state, done = self.memory.sample_buffer(self.batch_size)

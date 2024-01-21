@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     agent = Agent(alpha=0.0005, beta=0.0005, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0], layer1_size=400, layer2_size=300)
     # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
-    n_games = 2
+    n_games = 5
     best_score = 0
     score_history = []
     load_checkpoint = False
