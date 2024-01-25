@@ -32,14 +32,21 @@ if __name__ == '__main__':
     )
     env = GymWrapper(env)
 
-    agent = Agent(alpha=0.001, beta=0.001, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0], layer1_size=400, layer2_size=300)
+    alpha=0.001
+    beta=0.001
+    batch_size=128
+    layer1_size=256
+    layer2_size=128
+
+    agent = Agent(alpha=alpha, beta=beta, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0],
+                  layer1_size=layer1_size, layer2_size=layer2_size, batch_size=batch_size)
     # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
     writer = SummaryWriter('logs')
-    n_games = 3000
+    n_games = 10000
     best_score = 0
     score_history = []
     load_checkpoint = False
-    episode_identifier = 0
+    episode_identifier = f"13 - alpha={alpha} - beta={beta} - batch_size={batch_size} - Critic AdamW - 0.005 - l1={layer1_size} l2={layer2_size}"
 
     models_loaded = agent.load_models()
 

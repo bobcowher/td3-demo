@@ -22,15 +22,21 @@ if __name__ == '__main__':
         has_renderer=True,  # Enable rendering
         use_camera_obs=False,
         horizon=200,
-        render_camera="sideview",           # Camera view
+        render_camera="frontview",           # Camera view
         has_offscreen_renderer=True,        # No offscreen rendering
         reward_shaping=True,
         control_freq=20,  # Control frequency
     )
     env = GymWrapper(env)
 
-    agent = Agent(alpha=0.0005, beta=0.0005, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0], layer1_size=400, layer2_size=300)
-    # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
+    alpha=0.001
+    beta=0.001
+    batch_size=128
+    layer1_size=256
+    layer2_size=128
+
+    agent = Agent(alpha=alpha, beta=beta, tau=0.005, input_dims=env.observation_space.shape, env=env, n_actions=env.action_space.shape[0],
+                  layer1_size=layer1_size, layer2_size=layer2_size, batch_size=batch_size, noise=0.05)    # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
     n_games = 5
     best_score = 0
     score_history = []
@@ -49,9 +55,9 @@ if __name__ == '__main__':
             observation_, reward, done, info = env.step(action)
             env.render()
             score += reward
-            agent.remember(observation, action, reward, observation_, done)
             observation = observation_
             time.sleep(0.03)
+        # time.sleep(15)
 
         print(f"Episode score was {score}")
 

@@ -59,7 +59,7 @@ class Agent:
         self.memory.store_transition(state, action, reward, new_state, done)
 
     def learn(self):
-        if self.memory.mem_ctr < self.batch_size * 20:
+        if self.memory.mem_ctr < self.batch_size * 10:
             return
 
         state, action, reward, new_state, done = self.memory.sample_buffer(self.batch_size)
@@ -159,11 +159,18 @@ class Agent:
     def load_models(self):
         try:
             self.actor.load_checkpoint()
+            print("Successfully loaded actor model")
             self.target_actor.load_checkpoint()
+            print("Successfully loaded target actor model")
             self.critic_1.load_checkpoint()
+            print("Successfully loaded critic 1 model")
             self.critic_2.load_checkpoint()
+            print("Successfully loaded critic 2 model")
             self.target_critic_1.load_checkpoint()
+            print("Successfully loaded target critic 1 model")
             self.target_critic_2.load_checkpoint()
+            print("Successfully loaded target critic 2 model")
+            print("-----------------------------------------")
             print("Successfully loaded models")
         except:
             print("Failed to load models. Starting from scratch")
