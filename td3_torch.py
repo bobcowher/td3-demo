@@ -48,8 +48,11 @@ class Agent:
             state = T.tensor(observation, dtype=T.float).to(self.actor.device)
             mu = self.actor.forward(state).to(self.actor.device).to(self.actor.device)
 
-
-        mu_prime = mu + T.tensor(np.random.normal(scale=self.noise), dtype=T.float).to(self.actor.device)
+        # print("Mu: ", mu)
+        noise = T.tensor(np.random.normal(scale=self.noise), dtype=T.float).to(self.actor.device)
+        # print("Noise: ", noise)
+        mu_prime = mu + noise
+        # print("Mu prime", mu_prime)
         mu_prime = T.clamp(mu_prime, self.min_action[0], self.max_action[0])
         self.time_step += 1
 
@@ -159,17 +162,17 @@ class Agent:
     def load_models(self):
         try:
             self.actor.load_checkpoint()
-            print("Successfully loaded actor model")
+            print(f"Successfully loaded actor model on {self.actor.device}")
             self.target_actor.load_checkpoint()
-            print("Successfully loaded target actor model")
+            print(f"Successfully loaded target actor model on {self.target_actor.device}")
             self.critic_1.load_checkpoint()
-            print("Successfully loaded critic 1 model")
+            print(f"Successfully loaded critic 1 model on {self.critic_1.device}")
             self.critic_2.load_checkpoint()
-            print("Successfully loaded critic 2 model")
+            print(f"Successfully loaded critic 2 model on {self.critic_2.device}")
             self.target_critic_1.load_checkpoint()
-            print("Successfully loaded target critic 1 model")
+            print(f"Successfully loaded target critic 1 model on {self.target_critic_1.device}")
             self.target_critic_2.load_checkpoint()
-            print("Successfully loaded target critic 2 model")
+            print(f"Successfully loaded target critic 2 model on {self.target_critic_2.device}")
             print("-----------------------------------------")
             print("Successfully loaded models")
         except:
