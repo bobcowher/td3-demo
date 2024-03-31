@@ -15,7 +15,7 @@ if __name__ == '__main__':
     if not os.path.exists("tmp/td3"):
         os.makedirs("tmp/td3")
 
-    env_name = "Lift"
+    env_name = "PickPlaceSingle"
 
     env = suite.make(
         env_name,  # Environment
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     best_score = 0
     score_history = []
     load_checkpoint = False
-    episode_identifier = f"13 - alpha={alpha} - beta={beta} - batch_size={batch_size} - Critic AdamW - 0.005 - l1={layer1_size} l2={layer2_size}"
+    episode_identifier = f"0 - alpha={alpha} - beta={beta} - batch_size={batch_size} - Critic AdamW - 0.005 - l1={layer1_size} l2={layer2_size}"
 
     models_loaded = agent.load_models()
 
