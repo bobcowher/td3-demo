@@ -42,13 +42,13 @@ if __name__ == '__main__':
                   layer1_size=layer1_size, layer2_size=layer2_size, batch_size=batch_size)
     # agent = Agent(input_dims=env.input_dims, env=env, n_actions=env.action_dim)
     writer = SummaryWriter('logs')
-    n_games = 10000
+    n_games = 20000
     best_score = 0
     score_history = []
     load_checkpoint = False
     episode_identifier = f"0 - alpha={alpha} - beta={beta} - batch_size={batch_size} - Critic AdamW - 0.005 - l1={layer1_size} l2={layer2_size}"
 
-    models_loaded = agent.load_models()
+    # models_loaded = agent.load_models()
 
     for i in range(n_games):
         observation = env.reset()
