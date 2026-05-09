@@ -2,7 +2,7 @@ gym==0.23.0
 pybullet
 matplotlib
 tensorboard
-robosuite==1.4.1
+robosuite<1.4
 termcolor
 h5py
 --extra-index-url https://download.pytorch.org/whl/cu118
