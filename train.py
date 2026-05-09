@@ -1,9 +1,10 @@
 import os
+import gym
 import numpy as np
 from td3_torch import Agent
 from torch.utils.tensorboard import SummaryWriter
 import robosuite as suite
-from robosuite.wrappers import GymnasiumWrapper
+from robosuite.wrappers import GymWrapper
 
 
 if __name__ == '__main__':
@@ -26,7 +27,7 @@ if __name__ == '__main__':
         reward_shaping=True,
         control_freq=20,  # Control frequency
     )
-    env = GymnasiumWrapper(env)
+    env = GymWrapper(env)
 
     alpha=0.001
     beta=0.001
@@ -47,13 +48,12 @@ if __name__ == '__main__':
     models_loaded = agent.load_models()
 
     for i in range(n_games):
-        observation, _ = env.reset()
+        observation = env.reset()
         done = False
         score = 0
         while not done:
             action = agent.choose_action(observation)
-            observation_, reward, terminated, truncated, info = env.step(action)
-            done = terminated or truncated
+            observation_, reward, done, info = env.step(action)
             score += reward
             agent.remember(observation, action, reward, observation_, done)
             agent.learn()
